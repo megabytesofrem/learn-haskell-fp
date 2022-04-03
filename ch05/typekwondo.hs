@@ -1,5 +1,4 @@
 module Typekwondo where
-import Control.Arrow ((>>>))
 
 f :: Int -> String
 f = undefined
@@ -43,4 +42,4 @@ munge :: (x -> y) -- x to y
     -> (y -> (w, z)) -- y -> (w,z)
     -> x -- x
     -> w
-munge fxy fwz x = fwz >>> fst $ fxy x
+munge fxy fwz x = fst . fwz $ fxy x
