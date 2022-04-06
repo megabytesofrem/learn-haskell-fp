@@ -76,6 +76,63 @@ Case Expressions
 ```hs
 pal xs =
   case xs == reverse xs of
-    True -> "yes"
-    False -> "no"
+      True -> "yes"
+      False -> "no"
+```
+
+Higher-order Functions
+====
+Higher-order functions are functions that accept other functions as arguments.
+* Functions are just values so why couldn't we pass them around?
+
+`flip` is a higher order function that flips the order of arguments
+```hs
+flip :: (a -> b -> c) -> b -> a -> c
+flip f x y = f y x
+```
+
+Guards
+======
+Writing guard blocks
+----
+```hs
+myAbs :: Integer -> Integer
+myAbs x 
+    | x < 0     = (-x)
+    | otherwise = x
+
+
+bloodNa :: Integer -> String
+bloodNa x 
+    | x < 135 = "too low"
+    | x > 145 = "too high"
+    | otherwise = "just right"
+```
+
+* Each guard has its own `=` sign, which is the value to return from the guard
+* `otherwise` is the fallback pattern, it matches anything else 
+
+Function Composition
+====
+```hs
+(.) :: (b -> c) -> (a -> b) -> a -> c
+```
+1. Given a function from b to c
+2. Given a function from a to c
+3. Return a function a to c
+
+* `(f . g) x = f (g x)`
+* `$` is used when composing to delay function application until we have composed them
+
+`Prelude > take 5 . reverse $ [1..10]`
+`[10,9,8,7,6]`
+
+Pointfree Style
+====
+Pointfree style is a style of composing functions without explicitly specifying their
+arguments. 
+
+```hs
+let pointfull x = (negate . sum) x
+let pointfree = negate . sum
 ```
